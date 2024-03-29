@@ -15,7 +15,7 @@ export const getAccessToken = (callbackUrlPath, code) => {
     callbackUrlPath,
     code,
   })}`;
-  return axios.post(targetUrl);
+  return axios.get(targetUrl);
 };
 
 export const decryptToken = (token) => {
