@@ -20,7 +20,7 @@ export const getAccessToken = (callbackUrlPath, code) => {
 
 export const decryptToken = (token) => {
   const targetUrl = `${backendUrl}/decodeToken`;
-  return axios.post(targetUrl, JSON.stringify({ ...token }));
+  return axios.post(targetUrl, token);
 };
 
 export const getSession = (accessToken) => {

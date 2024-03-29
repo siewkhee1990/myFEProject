@@ -4,21 +4,26 @@ import { decryptToken } from "./backend";
 export default function PostLogin() {
   const [token, setToken] = useState(null);
   const [sid, setSid] = useState("");
+
   useEffect(() => {
     const accessToken = localStorage.getItem("singpassToken");
     if (accessToken) {
-      setToken(JSON.parse(token)); // set token
+      const tokenObj = JSON.parse(accessToken);
+      setToken(tokenObj); // set token
     }
   }, []);
+
   useEffect(() => {
     if (token) {
-      processToken(token);
+      processToken(token).then((sid) => {
+        setSid(sid);
+      });
     }
   }, [token]);
 
   async function processToken() {
-    const { sid, uuid } = await decryptToken(token);
-    setSid(sid);
+    const { data: { sid, uuid } = {} } = await decryptToken(token);
+    return sid;
   }
   return (
     <div>
